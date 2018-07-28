@@ -1,11 +1,21 @@
 {% extends "base.html" %}
-
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-38578610-12"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'UA-38578610-12');
+</script>
 {% block content %}
-<h1>This is my index page</h1>
+<h1>Self assessment for new Qxf2 hires</h1>
+<p>This app is a self assessment tool for new hires. You'll see questions based on Qxf2 culture and work habits. By submitting this form, you will know the essential habits required to improvise in becoming an effective Qxf2 employee. </p>
+<p>Please answer these questions honestly even if you know the 'correct' answer. If you score low, figure out what habits you need to change and apply them from tomorrow. The quiz comes from our observations on the habits required to do well at our clients. So, it is important that you take this assessment seriously.</p>
+<p>New hires are expected to take this quiz daily until they consistently score high marks for two weeks at a stretch. </p>
 {% if user.is_authenticated %}
     <p>Username: {{user.username}}</p>
     <p>Name: {{user.first_name}} {{user.last_name}}</p>
     <p>Email: {{user.email}}</p>
 {% endif %}
-    
+
 {% endblock  %}

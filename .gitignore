@@ -3,3 +3,5 @@ csv/
 *.idea
 *.code
 *__pycache__
+static/
+venv*/

@@ -1,4 +1,11 @@
 {% extends "base.html" %}
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-38578610-12"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'UA-38578610-12');
+</script>
 {% load i18n %}
 
 {% load quiz_tags %}
@@ -19,7 +26,8 @@
 		<th>{% trans "Category" %}</th>
 		<th>{% trans "Correctly answererd" %}</th>
 		<th>{% trans "Incorrect" %}</th>
-		<th>%</th>
+		<th>{% trans "Total" %}</th>
+		<th>{% trans "Percentage" %}</th>
 	  </tr>
 	</thead>
 
@@ -32,6 +40,7 @@
 		<td>{{ value.0 }}</td>
 		<td>{{ value.1 }}</td>
 		<td>{{ value.2 }}</td>
+		<td>{{ value.3 }}</td>
 	  </tr>
 
 	  {% endfor %}
@@ -57,6 +66,7 @@
 	<thead>
 	  <tr>
 		<th>{% trans "Quiz Title" %}</th>
+		<th>{% trans "Date taken" %}</th>
 		<th>{% trans "Score" %}</th>
 		<th>{% trans "Possible Score" %}</th>
 		<th>%</th>
@@ -69,6 +79,7 @@
 
 	  <tr>
 		<td>{{ exam.quiz.title }}</td>
+		<td>{{ exam.end }}</td>
 		<td>{{ exam.current_score }}</td>
 		<td>{{ exam.get_max_score }}</td>
 		<td>{{ exam.get_percent_correct }}</td>

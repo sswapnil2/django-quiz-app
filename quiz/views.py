@@ -2,8 +2,10 @@ import random
 
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.exceptions import PermissionDenied
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.utils.decorators import method_decorator
+from django.urls import resolve
 from django.views.generic import DetailView, ListView, TemplateView
 from django.views.generic.edit import FormView
 from .forms import QuestionForm
@@ -109,7 +111,7 @@ class QuizMarkingList(QuizMarkerMixin, SittingFilterTitleMixin, ListView):
             queryset = queryset.filter(user__username__icontains=user_filter)
 
         return queryset
-    
+
     class Meta:
         pass
 
@@ -154,6 +156,9 @@ class QuizTake(FormView):
         if self.sitting is False:
             return render(request, 'single_complete.html')
 
+        if request.GET.get("validate", 0) == '1':
+            return self.validate_answer(self.get_form(), request.GET.get("guess"))
+
         return super(QuizTake, self).dispatch(request, *args, **kwargs)
 
     def get_form(self, form_class=QuestionForm):
@@ -185,6 +190,14 @@ class QuizTake(FormView):
         if hasattr(self, 'progress'):
             context['progress'] = self.progress
         return context
+
+    def validate_answer(self, form, guess):
+        "Validate the answer returned"
+        progress, c = Progress.objects.get_or_create(user=self.request.user)
+        is_correct = self.question.check_if_correct(guess)
+        explanation = self.question.explanation
+
+        return JsonResponse({'explanation':explanation, 'result':is_correct})
 
     def form_valid_user(self, form):
         progress, c = Progress.objects.get_or_create(user=self.request.user)
@@ -261,6 +274,5 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     messages.success(request, 'You have been logged out!')
-    print('logout function working')
     return redirect('login')
 
