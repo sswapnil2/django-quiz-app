@@ -27,7 +27,6 @@ class CategoryManager(models.Manager):
 
 
 class Category(models.Model):
-
     category = models.CharField(
         verbose_name=_("Category"),
         max_length=250, blank=True,
@@ -44,7 +43,6 @@ class Category(models.Model):
 
 
 class Quiz(models.Model):
-
     title = models.CharField(
         verbose_name=_("Title"),
         max_length=60, blank=False)
@@ -173,11 +171,11 @@ class Progress(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, verbose_name=_("User"), on_delete=models.CASCADE)
 
     score = models.CharField(validators=[validate_comma_separated_integer_list], max_length=1024,
-                                              verbose_name=_("Score"))
+                             verbose_name=_("Score"))
 
     correct_answer = models.CharField(max_length=10, verbose_name=_('Correct Answers'))
 
-    wrong_answer = models.CharField(max_length=10, verbose_name=_('Wrong Answers')) 
+    wrong_answer = models.CharField(max_length=10, verbose_name=_('Wrong Answers'))
 
     objects = ProgressManager()
 
@@ -232,8 +230,8 @@ class Progress(models.Model):
         and max possible.
         Does not return anything.
         """
-        category_test = Category.objects.filter(category=question.category)\
-                                        .exists()
+        category_test = Category.objects.filter(category=question.category) \
+            .exists()
 
         if any([item is False for item in [category_test,
                                            score_to_add,
@@ -242,15 +240,15 @@ class Progress(models.Model):
                                            isinstance(possible_to_add, int)]]):
             return _("error"), _("category does not exist or invalid score")
 
-        to_find = re.escape(str(question.category)) +\
-            r",(?P<score>\d+),(?P<possible>\d+),"
+        to_find = re.escape(str(question.category)) + \
+                  r",(?P<score>\d+),(?P<possible>\d+),"
 
         match = re.search(to_find, self.score, re.IGNORECASE)
 
         if match:
             updated_score = int(match.group('score')) + abs(score_to_add)
-            updated_possible = int(match.group('possible')) +\
-                abs(possible_to_add)
+            updated_possible = int(match.group('possible')) + \
+                               abs(possible_to_add)
 
             new_score = ",".join(
                 [
@@ -282,7 +280,7 @@ class Progress(models.Model):
         return Sitting.objects.filter(user=self.user, complete=True)
 
     def __str__(self):
-        return self.user.username + ' - '  + self.score
+        return self.user.username + ' - ' + self.score
 
 
 class SittingManager(models.Manager):
@@ -290,11 +288,11 @@ class SittingManager(models.Manager):
     def new_sitting(self, user, quiz):
         if quiz.random_order is True:
             question_set = quiz.question_set.all() \
-                                            .select_subclasses() \
-                                            .order_by('?')
+                .select_subclasses() \
+                .order_by('?')
         else:
             question_set = quiz.question_set.all() \
-                                            .select_subclasses()
+                .select_subclasses()
 
         question_set = [item.id for item in question_set]
 
@@ -320,8 +318,8 @@ class SittingManager(models.Manager):
     def user_sitting(self, user, quiz):
         if quiz.single_attempt is True and self.filter(user=user,
                                                        quiz=quiz,
-                                                       complete=True)\
-                                               .exists():
+                                                       complete=True) \
+                .exists():
             return False
 
         try:
@@ -352,13 +350,13 @@ class Sitting(models.Model):
     quiz = models.ForeignKey(Quiz, verbose_name=_("Quiz"), on_delete=models.CASCADE)
 
     question_order = models.CharField(validators=[validate_comma_separated_integer_list],
-        max_length=1024, verbose_name=_("Question Order"))
+                                      max_length=1024, verbose_name=_("Question Order"))
 
     question_list = models.CharField(validators=[validate_comma_separated_integer_list],
-        max_length=1024, verbose_name=_("Question List"))
+                                     max_length=1024, verbose_name=_("Question List"))
 
     incorrect_questions = models.CharField(validators=[validate_comma_separated_integer_list],
-        max_length=1024, blank=True, verbose_name=_("Incorrect questions"))
+                                           max_length=1024, blank=True, verbose_name=_("Incorrect questions"))
 
     current_score = models.IntegerField(verbose_name=_("Current Score"))
 
@@ -415,7 +413,7 @@ class Sitting(models.Model):
         dividend = float(self.current_score)
         divisor = len(self._question_ids())
         if divisor < 1:
-            return 0            # prevent divide by zero error
+            return 0  # prevent divide by zero error
 
         if dividend > divisor:
             return 100
@@ -480,7 +478,7 @@ class Sitting(models.Model):
         question_ids = self._question_ids()
         questions = sorted(
             self.quiz.question_set.filter(id__in=question_ids)
-                                  .select_subclasses(),
+                .select_subclasses(),
             key=lambda q: question_ids.index(q.id))
 
         if with_answers:
@@ -530,10 +528,12 @@ class Question(models.Model):
                                null=True,
                                verbose_name=_("Figure"))
 
-    content = models.CharField(max_length=1000,
-                               blank=False,
-                               help_text=_("Enter the question text that "
-                                           "you want displayed"),
+    # content = models.CharField(max_length=1000,
+    #                            blank=False,
+    #                            help_text=_("Enter the question text that you want displayed"),
+    #                            verbose_name=_('Question'))
+    content = models.TextField(blank=False,
+                               help_text=_("Enter the question text that you want displayed"),
                                verbose_name=_('Question'))
 
     explanation = models.TextField(max_length=2000,
@@ -564,25 +564,27 @@ def upload_csv_file(instance, filename):
 
 
 class CSVUpload(models.Model):
-    title       = models.CharField(max_length=100, verbose_name=_('Title'), blank=False)
-    user        = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    file        = models.FileField(upload_to=upload_csv_file, validators=[csv_file_validator])
-    completed   = models.BooleanField(default=False)
+    title = models.CharField(max_length=100, verbose_name=_('Title'), blank=False)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    file = models.FileField(upload_to=upload_csv_file, validators=[csv_file_validator])
+    completed = models.BooleanField(default=False)
+
     # questions   = models.BooleanField(default=True)
     # students    = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.username
 
+
 def create_user(data):
-    user =  User.objects.create_user(username=data['username'], 
-                            email=data['email'],
-                            password=data['password'],
-                            first_name=data['first_name'],
-                            last_name=data['last_name']
-                            )
-    user.is_admin=False
-    user.is_staff=False
+    user = User.objects.create_user(username=data['username'],
+                                    email=data['email'],
+                                    password=data['password'],
+                                    first_name=data['first_name'],
+                                    last_name=data['last_name']
+                                    )
+    user.is_admin = False
+    user.is_staff = False
     user.save()
 
 
@@ -615,8 +617,8 @@ def csv_upload_post_save(sender, instance, created, *args, **kwargs):
             for item in row_item:
                 key = header_cols[i]
                 parsed_row_data[key] = item
-                i+=1
-            create_user(parsed_row_data) # create user
+                i += 1
+            create_user(parsed_row_data)  # create user
             parsed_items.append(parsed_row_data)
             # messages.success(parsed_items)
             print(parsed_items)
@@ -632,11 +634,9 @@ def csv_upload_post_save(sender, instance, created, *args, **kwargs):
                 setattr(new_obj, key) = item
                 i+=1
             new_obj.save()
-        ''' 
+        '''
         instance.completed = True
         instance.save()
 
 
 post_save.connect(csv_upload_post_save, sender=CSVUpload)
-
-

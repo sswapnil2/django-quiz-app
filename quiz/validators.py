@@ -4,12 +4,13 @@ import io
 
 from django.core.exceptions import ValidationError
 
-REQUIRED_HEADER  = ['username' ,'email','password','first name','last name']
+REQUIRED_HEADER = ['username', 'email', 'password', 'first name', 'last name']
+
 
 def csv_file_validator(value):
     filename, ext = os.path.splitext(value.name)
-    if  str(ext) != '.csv':
-         raise ValidationError("Must be a csv file")
+    if str(ext) != '.csv':
+        raise ValidationError("Must be a csv file")
     decoded_file = value.read().decode('utf-8')
     io_string = io.StringIO(decoded_file)
     reader = csv.reader(io_string, delimiter=';', quotechar='|')

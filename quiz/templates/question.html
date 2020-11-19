@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load i18n%}
-
+{% load markdown_extras %}
 
 
 {% block title %} {{ quiz.title }} {% endblock %}
@@ -53,7 +53,7 @@
   <strong>{{ question.category }}</strong>
 </p>
 
-<p class="lead">{{ question.content }}</p>
+<p class="lead">{{ question.content | markdown | safe }}</p>
 
 {% if question.figure %}
     <img src="{{ question.figure.url }}" alt="{{ question.content }}" />

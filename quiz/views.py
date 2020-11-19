@@ -32,6 +32,7 @@ class SittingFilterTitleMixin(object):
 
 class QuizListView(ListView):
     model = Quiz
+
     # @login_required
     def get_queryset(self):
         queryset = super(QuizListView, self).get_queryset()
@@ -66,11 +67,11 @@ class ViewQuizListByCategory(ListView):
             category=self.kwargs['category_name']
         )
 
-        return super(ViewQuizListByCategory, self).\
+        return super(ViewQuizListByCategory, self). \
             dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        context = super(ViewQuizListByCategory, self)\
+        context = super(ViewQuizListByCategory, self) \
             .get_context_data(**kwargs)
 
         context['category'] = self.category
@@ -86,7 +87,7 @@ class QuizUserProgressView(TemplateView):
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
-        return super(QuizUserProgressView, self)\
+        return super(QuizUserProgressView, self) \
             .dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
@@ -101,15 +102,15 @@ class QuizMarkingList(QuizMarkerMixin, SittingFilterTitleMixin, ListView):
     model = Sitting
 
     def get_queryset(self):
-        queryset = super(QuizMarkingList, self).get_queryset()\
-                                               .filter(complete=True)
+        queryset = super(QuizMarkingList, self).get_queryset() \
+            .filter(complete=True)
 
         user_filter = self.request.GET.get('user_filter')
         if user_filter:
             queryset = queryset.filter(user__username__icontains=user_filter)
 
         return queryset
-    
+
     class Meta:
         pass
 
@@ -132,7 +133,7 @@ class QuizMarkingDetail(QuizMarkerMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(QuizMarkingDetail, self).get_context_data(**kwargs)
-        context['questions'] =\
+        context['questions'] = \
             context['sitting'].get_questions(with_answers=True)
         return context
 
@@ -204,7 +205,7 @@ class QuizTake(FormView):
                              'previous_question': self.question,
                              'answers': self.question.get_answers(),
                              'question_type': {self.question
-                                               .__class__.__name__: True}}
+                                                   .__class__.__name__: True}}
         else:
             self.previous = {}
 
@@ -224,9 +225,9 @@ class QuizTake(FormView):
         self.sitting.mark_quiz_complete()
 
         if self.quiz.answers_at_end:
-            results['questions'] =\
+            results['questions'] = \
                 self.sitting.get_questions(with_answers=True)
-            results['incorrect_questions'] =\
+            results['incorrect_questions'] = \
                 self.sitting.get_incorrect_questions
 
         if self.quiz.exam_paper is False:
@@ -235,14 +236,11 @@ class QuizTake(FormView):
         return render(self.request, 'result.html', results)
 
 
-
-
 def index(request):
     return render(request, 'index.html', {})
 
 
 def login_user(request):
-
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -263,4 +261,3 @@ def logout_user(request):
     messages.success(request, 'You have been logged out!')
     print('logout function working')
     return redirect('login')
-

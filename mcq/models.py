@@ -9,13 +9,10 @@ ANSWER_ORDER_OPTIONS = (
 
 
 class MCQQuestion(Question):
-
     answer_order = models.CharField(
         max_length=30, null=True, blank=True,
         choices=ANSWER_ORDER_OPTIONS,
-        help_text="The order in which multichoice \
-                    answer options are displayed \
-                    to the user",
+        help_text="The order in which multi-choice answer options are displayed to the user",
         verbose_name="Answer Order")
 
     def check_if_correct(self, guess):
@@ -65,12 +62,6 @@ class Answer(models.Model):
     def __str__(self):
         return self.content
 
-
     class Meta:
         verbose_name = "Answer"
         verbose_name_plural = "Answers"
-
-
-
-
-
