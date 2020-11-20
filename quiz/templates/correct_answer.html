@@ -1,32 +1,36 @@
 {% load i18n %}
+{% load markdown_extras %}
+
 {% if previous.answers %}
+    {% if user_was_incorrect %}
+        <div class="alert alert-error">
+            <strong>{% trans "You answered the above question incorrectly" %}</strong>
+        </div>
+    {% endif %}
 
-  {% if user_was_incorrect %}
-    <div class="alert alert-error">
-  	  <strong>{% trans "You answered the above question incorrectly" %}</strong>
-    </div>
-  {% endif %}
-
-  <table class="table table-striped table-bordered">
-    <tbody>
-  	  {% for answer in previous.answers %}
-        {% if answer.correct %}
-  	    <tr class="success">
-  		  <td>{{ answer.content }}</td>
-  		  <td><strong>{% trans "This is the correct answer" %}</strong></td>
-        {% else %}
-  		<tr>
-      	  <td>{{ answer.content }}</td>
-  		  <td>
-  			{% if previous.question_type.MCQuestion %}
-  			  {% if answer.id|add:"0" == previous.previous_answer|add:"0" %}
-  			    {% trans "This was your answer." %}
-  			  {% endif %}
-  			{% endif %}
-  		  </td>
-  	  {% endif %}
-  	    </tr>
-  	{% endfor %}
-    </tbody>
-  </table>
+    {#  <table class="table table-striped table-bordered">#}
+    <table class="table table-bordered">
+        <tbody>
+            {% for answer in previous.answers %}
+                {% if answer.correct %}
+                    <tr class="success">
+                        <td> {{ answer.content | markdown | safe }} </td>
+{#                        <td><strong>{% trans "This is the correct answer" %}</strong></td>#}
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td>{{ answer.content | markdown | safe }}</td>
+{#                        <td><strong>{% trans "This is the in-correct answer" %}</strong></td>#}
+{#                        <td>#}
+{#                            {% if previous.question_type.MCQuestion %}#}
+{#                                {% if answer.id|add:"0" == previous.previous_answer|add:"0" %}#}
+{#                                    {% trans "This was your answer." %}#}
+{#                                {% endif %}#}
+{#                            {% endif %}#}
+{#                        </td>#}
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
 {% endif %}

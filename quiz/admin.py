@@ -12,6 +12,7 @@ class CSVUploadsAdmin(admin.ModelAdmin):
     model = CSVUpload
     list_display= ('title',)
 
+
 class AnswerInline(admin.TabularInline):
     model = Answer
 

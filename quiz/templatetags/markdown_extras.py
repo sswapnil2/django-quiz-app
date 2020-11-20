@@ -1,4 +1,6 @@
 from django import template
+# from django.template.defaultfilters import stringfilter
+
 import mistune
 from pygments import highlight
 from pygments.lexers import get_lexer_by_name
@@ -18,6 +20,7 @@ class HighlightRenderer(mistune.Renderer):
 
 
 @register.filter
+# @stringfilter
 def markdown(value):
     renderer = HighlightRenderer()
     markdown = mistune.Markdown(renderer=renderer)
