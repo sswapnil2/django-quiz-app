@@ -24,19 +24,29 @@
     {% endif %}
     {% if max_score %}
         <div>
+            <br>
             <h2 style="text-align: center;">{% trans "Exam results" %}</h2>
             <p style="text-align: center;">
                 <small class="muted">{% trans "Exam title" %}: </small>
                 <strong>{{ quiz.title }}</strong>
             </p>
             <br>
-            <p class="lead" style="text-align: center;">
-                {% trans "Total number of questions : " %} {{ max_score }}
-                <br>
-                {% trans "Questions answered correctly : " %} {{ score }}
-                <br>
-                {% trans "Total final score : " %} {{ percent }}
-            </p>
+            <table class="table table-bordered" style="text-align: center;">
+                <tbody>
+                    <tr>
+                        <td>{% trans "Total number of questions : " %}</td>
+                        <td>{{ max_score }}</td>
+                    </tr>
+                    <tr>
+                        <td>{% trans "Questions answered correctly : " %}</td>
+                        <td>{{ score }}</td>
+                    </tr>
+                    <tr>
+                        <td>{% trans "Total final score : " %}</td>
+                        <td>{{ percent }}</td>
+                    </tr>
+                </tbody>
+            </table>
             {% if quiz.pass_mark %}
                 <hr>
                 <p class="lead" style="text-align: center;">{{ sitting.result_message }}</p>
@@ -57,12 +67,6 @@
     {% endif %}
     {% if questions %}
         {% for question in questions %}
-            {% if user_was_incorrect %}
-                <div class="alert alert-error">
-                    <strong>{% trans "You answered the above question incorrectly" %}</strong>
-                </div>
-                You were wrong!
-            {% endif %}
             <h1 style="text-align: center;">({{ question.id }})</h1>
             <br>
             <h3 style="text-decoration: underline;">Question</h3>

@@ -15,19 +15,18 @@
                 {% if answer.correct %}
                     <tr class="success">
                         <td> {{ answer.content | markdown | safe }} </td>
-{#                        <td><strong>{% trans "This is the correct answer" %}</strong></td>#}
+                        <td><strong>{% trans "This is the correct answer" %}</strong></td>
                     </tr>
                 {% else %}
                     <tr>
                         <td>{{ answer.content | markdown | safe }}</td>
-{#                        <td><strong>{% trans "This is the in-correct answer" %}</strong></td>#}
-{#                        <td>#}
-{#                            {% if previous.question_type.MCQuestion %}#}
-{#                                {% if answer.id|add:"0" == previous.previous_answer|add:"0" %}#}
-{#                                    {% trans "This was your answer." %}#}
-{#                                {% endif %}#}
-{#                            {% endif %}#}
-{#                        </td>#}
+                        <td>
+                            {% if previous.question_type.MCQuestion %}
+                                {% if answer.id|add:"0" == previous.previous_answer|add:"0" %}
+                                    {% trans "This was your answer." %}
+                                {% endif %}
+                            {% endif %}
+                        </td>
                     </tr>
                 {% endif %}
             {% endfor %}
