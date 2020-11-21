@@ -67,7 +67,8 @@
     {% endif %}
     {% if questions %}
         {% for question in questions %}
-            <h1 style="text-align: center;">({{ question.id }})</h1>
+{#            <h1 style="text-align: center;">({{ question.id }})</h1>#}
+            <h1 style="text-align: center;">({{ forloop.counter }})</h1>
             <br>
             <h3 style="text-decoration: underline;">Question</h3>
             <p class="lead">
