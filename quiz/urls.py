@@ -1,12 +1,13 @@
 from django.urls import re_path
 from .views import QuizListView, CategoriesListView, \
     ViewQuizListByCategory, QuizUserProgressView, QuizMarkingList, \
-    QuizMarkingDetail, QuizDetailView, QuizTake, index, login_user, logout_user
+    QuizMarkingDetail, QuizDetailView, QuizTake, index, login_user, logout_user, signup
 
 urlpatterns = [
     re_path(r'^$', index, name='index'),
     re_path(r'^login/$', login_user, name='login'),
     re_path(r'^logout/$', logout_user, name='logout'),
+    re_path(r'^signup/$', signup, name='signup'),
     re_path(r'^quizzes/$', QuizListView.as_view(), name='quiz_index'),
     re_path(r'^category/$', CategoriesListView.as_view(), name='quiz_category_list_all'),
     re_path(r'^category/(?P<category_name>[\w|\W-]+)/$', ViewQuizListByCategory.as_view(), name='quiz_category_list_matching'),
