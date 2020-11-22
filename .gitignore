@@ -2,4 +2,5 @@ csv/
 *sqlite3
 *.idea
 *.code
+*.vscode
 *__pycache__
