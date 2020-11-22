@@ -1,6 +1,7 @@
 csv/
-# *sqlite3
+*sqlite3
 *.idea
 *.code
 *.vscode
 *__pycache__
+django_quiz/local_settings.py
