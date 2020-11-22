@@ -1,11 +1,30 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>This is my index page</h1>
-{% if user.is_authenticated %}
-    <p>Username: {{user.username}}</p>
-    <p>Name: {{user.first_name}} {{user.last_name}}</p>
-    <p>Email: {{user.email}}</p>
-{% endif %}
-    
+    <br>
+    <br>
+    <div>
+        <h1 style="text-decoration: underline;">About</h1>
+        <p>This is a quiz app made using Django, HTML, CSS and JavaScript.</p>
+        <br>
+        <br>
+        <h4 style="text-decoration: underline;">Features</h4>
+        <ul>
+            <li>Multi-user app</li>
+            <li>Progress saved for each user</li>
+            <li>Questions can be written in <em>Markdown</em> and uploaded to the website</li>
+            <li>User can also upload images along with the questions</li>
+            <li>Users can also add explanations for the questions</li>
+        </ul>
+    </div>
+    <div style="">
+        <br>
+        <br>
+        <h4 style="text-decoration: underline;">User details</h4>
+        {% if user.is_authenticated %}
+            <p><b>Username</b>: {{user.username}}</p>
+            <p><b>Name</b>: {{user.first_name}} {{user.last_name}}</p>
+            <p><b>Email</b>: {{user.email}}</p>
+        {% endif %}
+    </div>
 {% endblock  %}
