@@ -2,7 +2,7 @@
 It is django based quiz app for multiple choice questions.
 
   
-### Instructions 
+## Instructions 
 
 **STEP - 1**: `git clone https://github.com/hanzala-sohrab/django-quiz-app.git`
 
@@ -21,7 +21,7 @@ It is django based quiz app for multiple choice questions.
     Username: foo
     Password: foo
 
-### Reference
+## Reference
  * [tomwalker](https://github.com/tomwalker) - [GitHub repo](https://github.com/tomwalker/django_quiz)
  * [sswapnil2](https://github.com/sswapnil2) - [GitHub repo](https://github.com/sswapnil2/django-quiz-app)
   
