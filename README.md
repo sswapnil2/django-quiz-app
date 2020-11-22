@@ -24,4 +24,5 @@ It is django based quiz app for multiple choice questions.
 ## Reference
  * [tomwalker](https://github.com/tomwalker) - [GitHub repo](https://github.com/tomwalker/django_quiz)
  * [sswapnil2](https://github.com/sswapnil2) - [GitHub repo](https://github.com/sswapnil2/django-quiz-app)
+ * [lydiahallie](https://github.com/lydiahallie) - [GitHub repo](https://github.com/lydiahallie/javascript-questions)
   
