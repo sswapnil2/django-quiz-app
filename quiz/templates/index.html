@@ -16,12 +16,10 @@
             <li>User can also upload images along with the questions</li>
             <li>Users can also add explanations for the questions</li>
         </ul>
-    </div>
-    <div style="">
-        <br>
-        <br>
-        <h4 style="text-decoration: underline;">User details</h4>
         {% if user.is_authenticated %}
+            <br>
+            <br>
+            <h4 style="text-decoration: underline;">User details</h4>
             <p><b>Username</b>: {{user.username}}</p>
             <p><b>Name</b>: {{user.first_name}} {{user.last_name}}</p>
             <p><b>Email</b>: {{user.email}}</p>
