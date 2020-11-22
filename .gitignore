@@ -5,3 +5,4 @@ csv/
 *.vscode
 *__pycache__
 django_quiz/local_settings.py
+staticfiles
