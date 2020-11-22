@@ -1,5 +1,7 @@
 from django import forms
 from django.forms.widgets import RadioSelect
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 
 class QuestionForm(forms.Form):
@@ -9,3 +11,11 @@ class QuestionForm(forms.Form):
         self.fields["answers"] = forms.ChoiceField(choices=choice_list, widget=RadioSelect)
 
 
+class SignUpForm(UserCreationForm):
+    first_name = forms.CharField(max_length=30, required=True, help_text='Your first name')
+    last_name = forms.CharField(max_length=30, required=True, help_text='Your last name')
+    email = forms.EmailField(max_length=256, help_text='Your email id (e.g. foo@example.com')
+
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
