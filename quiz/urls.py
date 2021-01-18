@@ -40,4 +40,9 @@ urlpatterns = [         url(regex=r'^$', view=index, name='index'),
                        url(regex=r'^(?P<quiz_name>[\w-]+)/take/$',
                            view=QuizTake.as_view(),
                            name='quiz_question'),
+
+                       url(regex=r'^(?P<quiz_name>[\w-]+)/validate-answer/$',
+                           view=QuizTake.as_view(),
+                           name='validate_answer'),
+
 ]
