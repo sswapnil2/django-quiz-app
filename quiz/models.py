@@ -191,8 +191,9 @@ class Progress(models.Model):
         Returns a dict in which the key is the category name and the item is
         a list of three integers.
         The first is the number of questions correct,
-        the second is the possible best score,
-        the third is the percentage correct.
+        the second is the incorrect score,
+        the third is the possible best score,
+        the fourth is the percentage correct.
         The dict will have one key for every category that you have defined
         """
         score_before = self.score
@@ -207,6 +208,7 @@ class Progress(models.Model):
             if match:
                 score = int(match.group(1))
                 possible = int(match.group(2))
+                incorrect = possible - score
 
                 try:
                     percent = int(round((float(score) / float(possible))
@@ -214,7 +216,7 @@ class Progress(models.Model):
                 except:
                     percent = 0
 
-                output[cat.category] = [score, possible, percent]
+                output[cat.category] = [score, incorrect, possible, percent]
 
             else:  # if category has not been added yet, add it.
                 self.score += cat.category + ",0,0,"
