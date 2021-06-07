@@ -1,21 +1,20 @@
 # django-quiz-app
 It is django based quiz app for multiple choice questions.
 
-
-### Snaps of project
+### Snaps of project 
   Login:
   ![alt text](https://github.com/sswapnil2/django-quiz-app/blob/master/screenshots/login.png "login page")
   <br>
-
+  
   quiz:
   ![alt text](https://github.com/sswapnil2/django-quiz-app/blob/master/screenshots/quiz_page.png  "quiz page")
   <br>
-
+  
   results:
   ![alt text](https://github.com/sswapnil2/django-quiz-app/blob/master/screenshots/results.png "results")
   <br>
-
-# Instructions
+  
+# Instructions 
 
 1) ### Installations
   Make sure to have python version 3 install on you pc or laptop.
@@ -32,6 +31,12 @@ It is django based quiz app for multiple choice questions.
   To run migrations. <br>
   `python manage.py makemigrations`<br>
   `python manage.py migrate`
+  
+4) ### Create superuser
+  To create super user run. <br>
+  `python manage.py createsuperuser` <br>
+  After running this command it will ask for username, password.
+  You can access admin panel from `localhost:8000/admin/`
 
 4) ### Create superuser
   To create super user run. <br>
