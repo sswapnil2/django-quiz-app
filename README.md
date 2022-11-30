@@ -25,7 +25,7 @@ It is django based quiz app for multiple choice questions.
   `cd django-quiz-app`
   
 2) ### Installing dependencies 
-  It will install all required dependies in the project.<br>
+  It will install all required dependencies in the project.<br>
   `pip install -r requirements.txt`
   
 3) ### Migrations 
@@ -44,6 +44,6 @@ It is django based quiz app for multiple choice questions.
   `python manage.py runserver` 
  
 5) ### Reference
-  I have refernced this quizz app from [tomwalker's](https://github.com/tomwalker) original repo. 
+  I have referenced this quiz app from [tomwalker's](https://github.com/tomwalker) original repo. 
   Reference link to the quiz app repo is [here](https://github.com/tomwalker/django_quiz)
   
